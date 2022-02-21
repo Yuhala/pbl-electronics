@@ -16,7 +16,19 @@ touch ssh
 
 
 ### Enable Wifi
-- TODO
+- Create a file called `wpa_supplicant.conf` in the `boot` folder in the microSD card. Enter the following info in the file.
+
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=your-country-code (e.g US)
+network={
+ssid="your-wifi-name"
+psk="your-wifi-password"
+}
+```
+
+- Raspberry Pi OS will use this information at boot time to automatically configure WiFi access for you Pi.
 
 ### Setup your pi board
 - Remove the microSD card from your PC, insert it into your Pi board and power up the board.
@@ -77,6 +89,20 @@ sudo apt update && sudo apt install git -y
 - For development on your Raspberry Pi, the [official documentation]() is a gold mine. Have fun 
 
 
+
+### Trouble shooting rasptank setup installations
+- sudo pip install opencv-contrib-python // this takes forever..try below
+- pip install opencv-python==4.5.3.56 
+- if numpy error at cv2 import, do:
+```
+sudo pip3 install -U numpy
+```
+
+- if camera error: `ERROR: the system should be configured for the legacy camera`, do 
+```
+sudo raspi-config
+Interface Options --> Enable legacy camera --> ... -->reboot
+```
 
 
 ### Author
