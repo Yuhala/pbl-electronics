@@ -2,6 +2,8 @@
 
 ## Setting up Raspberry Pi on Ubuntu 18 (no peripherals needed)
 
+This Readme provides information on how to set up a raspberry pi board without peripherals. The instructions here are based on my experience while setting up a raspberry pi 3B+ for an Adeept RaspTank Robot, based the first part of these instructions can be used for setting up a raspberry pi board for other purposes.
+
 ### Download and flash Raspberry Pi OS image
 - Download `balenaEtcher` tool for ubuntu: [balenaEtcher](https://www.balena.io/etcher/)
 - Download a compatible Raspberry Pi OS image for your board: [Raspberry Pi OS Downloads](https://www.raspberrypi.com/software/operating-systems/). The `Lite` versions do not come with an embedded GUI and have less software included. I use the Lite version for my work.
@@ -90,8 +92,8 @@ sudo apt update && sudo apt install git -y
 
 
 
-### Trouble shooting rasptank setup installations
-- sudo pip install opencv-contrib-python // this takes forever..try below
+### Trouble shooting rasptank setup installations (only for those setting up an Adeept Rasptank robot).
+- sudo pip install opencv-contrib-python (if this takes forever..try below)
 - pip install opencv-python==4.5.3.56 
 - if numpy error at cv2 import, do:
 ```

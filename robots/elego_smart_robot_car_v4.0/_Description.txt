@@ -1,0 +1,11 @@
+
+2021-01-04 14:16:35
+
+Smart Robot Car V4.0_v0
+
+Motor driver: DRV8835
+
+Note: In order to adapt the PWM control frequency of the motor driver output, the configuration of T0 timer is modified, and the two standard functions delay() and millis() are realized based on the T0 timer, so please use it carefully.
+(Custom _delay(), _millis() can be used)
+
+Current configuration: T0 = 244.4Hz
