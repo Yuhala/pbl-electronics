@@ -1,0 +1,14 @@
+
+
+SmartRobotCarV4.0_V2_20214027
+
+1#Compatible with TB6612 motor drive version
+2#QMI8658C
+
+
+Controller：uno
+Obstacle detection module：HC-SRO4
+Line tracking module：LTI-PCB
+Gyro module：QMI8658C
+Motor driver：TB6612
+Camera module：ESP32-WROVER
