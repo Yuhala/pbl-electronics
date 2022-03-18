@@ -2,6 +2,8 @@
 
 ## Setting up Raspberry Pi on Ubuntu 18 (no peripherals needed)
 
+This Readme provides information on how to set up a raspberry pi board without peripherals. The instructions here are based on my experience while setting up a raspberry pi 3B+ for an Adeept RaspTank Robot, based the first part of these instructions can be used for setting up a raspberry pi board for other purposes.
+
 ### Download and flash Raspberry Pi OS image
 - Download `balenaEtcher` tool for ubuntu: [balenaEtcher](https://www.balena.io/etcher/)
 - Download a compatible Raspberry Pi OS image for your board: [Raspberry Pi OS Downloads](https://www.raspberrypi.com/software/operating-systems/). The `Lite` versions do not come with an embedded GUI and have less software included. I use the Lite version for my work.
@@ -16,7 +18,19 @@ touch ssh
 
 
 ### Enable Wifi
-- TODO
+- Create a file called `wpa_supplicant.conf` in the `boot` folder in the microSD card. Enter the following info in the file.
+
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=your-country-code (e.g US)
+network={
+ssid="your-wifi-name"
+psk="your-wifi-password"
+}
+```
+
+- Raspberry Pi OS will use this information at boot time to automatically configure WiFi access for you Pi.
 
 ### Setup your pi board
 - Remove the microSD card from your PC, insert it into your Pi board and power up the board.
@@ -77,6 +91,20 @@ sudo apt update && sudo apt install git -y
 - For development on your Raspberry Pi, the [official documentation]() is a gold mine. Have fun 
 
 
+
+### Trouble shooting rasptank setup installations (only for those setting up an Adeept Rasptank robot).
+- sudo pip install opencv-contrib-python (if this takes forever..try below)
+- pip install opencv-python==4.5.3.56 
+- if numpy error at cv2 import, do:
+```
+sudo pip3 install -U numpy
+```
+
+- if camera error: `ERROR: the system should be configured for the legacy camera`, do 
+```
+sudo raspi-config
+Interface Options --> Enable legacy camera --> ... -->reboot
+```
 
 
 ### Author

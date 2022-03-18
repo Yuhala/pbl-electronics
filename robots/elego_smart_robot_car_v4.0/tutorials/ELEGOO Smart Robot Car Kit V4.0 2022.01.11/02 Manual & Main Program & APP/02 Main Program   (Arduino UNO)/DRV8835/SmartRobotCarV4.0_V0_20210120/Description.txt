@@ -1,0 +1,21 @@
+
+2021-01-04 14:16:35
+
+Smart Robot Car V4.0_v0
+
+电机驱动：DRV8835
+
+*注意 ：工程为了适配电机驱动输出的PWM控制频率，修改了T0定时器配置，delay() 、millis()两个标准功能函数是基于T0定时器实现的，因此请谨慎使用
+（可使用自定义 _delay() 、_millis()）
+
+当前配置 T0 = 244.4Hz
+
+
+
+
+Motor drive: DRV8835
+
+*Note: In order to adapt to the PWM control frequency of the motor drive output, the project has modified the T0 timer configuration. The two standard functions of delay() and millis() are implemented based on the T0 timer, so please use it with caution
+(You can use custom _delay(), _millis())
+
+Current configuration T0 = 244.4Hz
