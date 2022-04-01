@@ -24,7 +24,7 @@ sudo apt-get install arduino
 
 
 ### Test compilation
-- Try compiling the `.ino` file from within the Arduino IDE. If you have an inclusion error at the line: `#include <arduino.h>`, change to: `#include <arduino.h>`. Same with the line `#include <hardwareSerial.h>`, change to `#include <hardwareSerial.h>`. 
+- Try compiling the `.ino` file from within the Arduino IDE. If you have an inclusion error at the line: `#include <arduino.h>`, change to: `#include <Arduino.h>`. Same with the line `#include <hardwareSerial.h>`, change to `#include <HardwareSerial.h>`. 
 
 ### Upload program
 - Connect the arduino board to a USB port on your PC and upload the program. If you have issues uploading the program, try unplugging the bluetooth module from the board, or the entire shield above if that is easier. Flash the program again. If flashing works, plug the shield back in.
