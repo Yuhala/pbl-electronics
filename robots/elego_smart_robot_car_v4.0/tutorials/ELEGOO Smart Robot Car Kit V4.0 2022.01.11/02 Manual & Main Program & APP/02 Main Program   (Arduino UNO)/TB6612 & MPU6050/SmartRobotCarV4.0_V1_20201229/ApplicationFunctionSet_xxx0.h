@@ -9,7 +9,7 @@
 #ifndef _ApplicationFunctionSet_xxx0_H_
 #define _ApplicationFunctionSet_xxx0_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 
 class ApplicationFunctionSet
 {
