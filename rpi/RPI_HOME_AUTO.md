@@ -8,7 +8,7 @@ This Readme provides information on how to set up a raspberry pi board without p
 
 ## Using BalenaEtcher (not good for headless; ssh issues)
 - Download `balenaEtcher` tool for ubuntu: [balenaEtcher](https://www.balena.io/etcher/)
-- Download a compatible Raspberry Pi OS image for your board: [Raspberry Pi OS Downloads](https://www.raspberrypi.com/software/operating-systems/). The `Lite` versions do not come with an embedded GUI and have less software included (`364MB` vs `2.7GB`). We will use the `Lite` version: `Raspberry Pi OS Lite`.
+- Download a compatible Raspberry Pi OS image for your board: [Raspberry Pi OS Downloads](https://www.raspberrypi.com/software/operating-systems/). The `Lite` versions do not come with an embedded GUI and have less software included (`364MB` vs `2.7GB`). We will use the `Lite` version: `Raspberry Pi OS Lite`. We use `2023-05-03-raspios-bullseye-armhf-lite.img.xz` in this tutorial.
 - Connect a microSD card to your PC and use `balenaEtcher` to flash the downloaded OS image to the card. This is pretty straight forward, no need for a long tutorial.
 - Leave the microSD card connected to your PC for now.
 
@@ -122,6 +122,27 @@ GPIO.setup(14,GPIO.IN)
 ### Web control interface
 - TODO: create button to turn on/off led.
 - Add some news or updates to the interface, e.g., weather forcast details and outdoor weather details
+
+
+## Part 1: creating a simple Flask web-server in the Pi.
+- We will use Flask, a web framework developed in Python. 
+- Setup python virtual environment in the `homeauto` folder and install Flask. The virtual env allows to isolate the projects dependencies from other system-wide conflicting Python dependencies.
+```
+sudo apt update && sudo apt upgrade
+sudo apt install python3-pip python3-venv
+python3 -m venv home-auto-env
+source home-auto-env/bin/activate
+pip install flask
+```
+- Setup the Flask app folder: `web-control-panel`. Create subdirectories: `static` and `templates`, and the main application file: `app.py`.
+- See code in ??.
+
+```
+
+```
+- Run the Flask app with: `flask --app app run -h pi-IP-address`
+- The default port for Flask applications is `5000`. To see the web interface, open the web browser on a PC connected on the same network as your Pi and type: `pi-ip-address:5000`. For example, my Pi's IP is `192.168.1.123`, so I enter: `192.168.1.123:5000` in the browser window. You should see the hello message printed in your browser.
+
 
 ### Weather station
 - TODO: use dht11 sensor to read indoor temperature and humidity.
