@@ -149,9 +149,10 @@ pip install flask
 
 
 ### Controlling Tapo cameras
-- Install `pytapo` library.
+- Install `pytapo` and test library.
 ```
 python3 -m pip install pytapo
+pip install -U pytest
 ```
 - Initiate library.
 ```
