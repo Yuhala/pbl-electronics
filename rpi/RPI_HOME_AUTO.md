@@ -148,3 +148,20 @@ pip install flask
 - TODO: use dht11 sensor to read indoor temperature and humidity.
 
 
+### Controlling Tapo cameras
+- Install `pytapo` library.
+```
+python3 -m pip install pytapo
+```
+- Initiate library.
+```
+from pytapo import Tapo
+
+user = "petersonyuhala" # user you set in Advanced Settings -> Camera Account
+password = "" # password you set in Advanced Settings -> Camera Account
+host = "" # ip of the camera, example: 192.168.1.52
+
+tapo = Tapo(host, user, password)
+
+print(tapo.getBasicInfo())
+```
