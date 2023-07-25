@@ -143,6 +143,29 @@ pip install flask
 - Run the Flask app with: `flask --app app run -h pi-IP-address`
 - The default port for Flask applications is `5000`. To see the web interface, open the web browser on a PC connected on the same network as your Pi and type: `pi-ip-address:5000`. For example, my Pi's IP is `192.168.1.123`, so I enter: `192.168.1.123:5000` in the browser window. You should see the hello message printed in your browser.
 
+### Turn LED on/off with web button
+- Create a Flask route: `turn_on_led`.
+```
+@app.route('/turn-on-led', methods=['POST'])
+def turn_on_led():
+    GPIO.output(ledPin, GPIO.HIGH)
+    return render_template('home.html')
+```
+- Create a simple web page containing a form with a button. This page will be the home page, i.e., for route `/`. The submit method of the form should call the route `turn_on_led`.
+- See ??
+- Remember we are working in our virtual environment so `RPi.GPIO` is not yet install. To install it do: 
+```
+pip install RPi.GPIO
+```
+- Run you Flask app: `flask --app app run -h rpi-IP-address`
+- The LED should turn on/blink when the button is clicked.
+- Use the same idea to create a button and route to turn off the LED.
+```
+@app.route('/turn-off-led', methods=['POST'])
+def turn_led_off():
+    GPIO.output(ledPin, GPIO.LOW)
+    return render_template('home.html')
+```
 
 ### Weather station
 - TODO: use dht11 sensor to read indoor temperature and humidity.
@@ -172,3 +195,17 @@ print(tapo.getBasicInfo())
 
 
 ### Getting camera stream
+
+
+### Smart curtains
+
+
+### Controlling Hue lights
+- Install `phue` package.
+```
+pip install phue
+```
+- Get Hue bridge IP address via an `nmap` scan. The Hue bridge name is of the form: `
+
+
+### NFC door lock
