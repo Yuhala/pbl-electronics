@@ -146,7 +146,7 @@ pip install flask
 
 ### Weather station
 - TODO: use dht11 sensor to read indoor temperature and humidity.
-
+- TODO: add graph for daily temp and humidity variations
 
 # Controlling Tapo cameras
 ### Getting camera info
