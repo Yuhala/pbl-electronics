@@ -23,10 +23,15 @@
  */
 
 #include <IRremote.h>
+#include <SoftwareSerial.h>
 
-int recvPin = 11;
+const byte rxPin = 9;                  // bluetooth receiver pin
+const byte txPin = 8;                  // bluetooth transmission pin
+SoftwareSerial BTSerial(rxPin, txPin); // Create bluetooth object
 
-int redLed = 13;
+int recvPin = 11; // IR receiver pin
+
+int redLed = 13; // Red LED pin
 
 IRrecv irrecv(recvPin);
 decode_results results;
@@ -46,24 +51,50 @@ void runInfrared();
 
 void setup()
 {
+  irrecv.enableIRIn(); // Initialize the IR receiver
+  pinMode(redLed, OUTPUT);
+  digitalWrite(redLed, LOW);
+  pinMode(rxPin, INPUT);  // receiver pin receives bluetooth message, so it is INPUT.
+  pinMode(txPin, OUTPUT); // transmission pin sends bluetooth message, so it is OUTPUT.
+  BTSerial.begin(9600);   // Initialize the bluetooth software serial object to send and receive at txPin and rxPin;
+
   /**
    * Begin serial monitor at 9600 baud rate. The baud rate defines the
    * rate at which information is transferred between devices.
    */
   Serial.begin(9600);
-  irrecv.enableIRIn(); // Initialize the IR receiver
-  pinMode(redLed, OUTPUT);
-  digitalWrite(redLed, LOW);
 }
+
+String messageBuffer = "";
+String message = "";
 
 void loop()
 {
-  runInfrared();
+  //runInfrared();
   runBluetooth();
 }
 
 void runBluetooth()
 {
+  /**
+   * Check if there are characters in the serial buffer
+   *
+   */
+  while (BTSerial.available() > 0)
+  {
+    char data = (char)BTSerial.read(); // read the unit data in the serial object
+    messageBuffer += data;              // add the read data to the message buffer
+    /**
+     * We use semicolons to end a complete bluetooth message
+     *
+     */
+    if (data == ';')
+    {
+      message = messageBuffer; // read the full bluetooth message
+      messageBuffer = "";      // clear the message buffer
+      Serial.print(message);   // print received message in serial monitor
+    }
+  }
 }
 
 void runInfrared()

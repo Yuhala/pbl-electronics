@@ -1,5 +1,5 @@
 # STEM-bootcamp
-This repository contains Arduino-based projects for a STEM workshop. 
+This repository contains Arduino-based projects for a STEM workshop (See repo: https://github.com/Yuhala/stem-bootcamp)
 
 1. [Gas leak and smoke detection system](./smoke-detection/README.md)
 2. [Home automation: infrared and bluetooth](./home-automation/README.md)

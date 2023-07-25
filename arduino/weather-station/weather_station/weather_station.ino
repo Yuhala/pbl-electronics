@@ -20,24 +20,14 @@
  *  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *  The circuit:
- *  LCD RS pin to digital pin 12
- *  LCD Enable pin to digital pin 11
- *  LCD D4 pin to digital pin 5
- *  LCD D5 pin to digital pin 4
- *  LCD D6 pin to digital pin 3
- *  LCD D7 pin to digital pin 2
- *  LCD R/W pin to ground
- *  LCD VSS pin to ground
- *  LCD VCC pin to 5V
- * 
+ *
+ *
  */
 
 #include "DHT.h"
-
-#include <LiquidCrystal.h>
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-
-LiquidCrystal lcd(rs,en,d4,d5,d6,d7);
+#include <Wire.h>
+#include <hd44780.h>
+#include <hd44780ioClass/hd44780_I2Cexp.h>
 
 /**
  * This pin is connected to pin 2 of the DHT22 module.
@@ -46,35 +36,33 @@ LiquidCrystal lcd(rs,en,d4,d5,d6,d7);
 
 #define DHTTYPE DHT22 // DHT 22 (AM2302) module
 
-//const int buzzer = 7; // buzzer to arduino pin 7
+#define buzzer 7 // buzzer to arduino pin 7
 
 // Create DHT sensor object: program entity which represents the DHT22 module
 DHT dht(DHTPIN, DHTTYPE);
 
+hd44780_I2Cexp lcd;
+
 void setup()
 {
+  lcd.begin(16, 2);
+  lcd.backlight(); // Turn LCD backlight on
 
-  lcd.begin(16,2);
-  lcd.print("Hello Peterson!");
   // Initialize serial monitor
-  Serial.begin(9600);
-  Serial.println("DHT 22 test >>>>>>");
+  // Serial.begin(9600);
+  // Serial.println("DHT 22 test >>>>>>");
   // Initialize DHT sensor for 16mhz Arduino
   dht.begin();
   // Set buzzer pin as output
-  //pinMode(buzzer, OUTPUT);
+  pinMode(buzzer, OUTPUT);
 }
 
 void loop()
 {
 
-  //set up LCD's number of cols and rows
-  lcd.setCursor(0,1);
-  lcd.print("Hello Peterson!");
   // Wait 2 seconds between measurements
   delay(2000);
-  
-  
+
   // Read temperature
   float t = dht.readTemperature();
   float h = dht.readHumidity();
@@ -86,18 +74,44 @@ void loop()
     return;
   }
 
-  Serial.print("Humidity: ");
-  Serial.print(h);
-  Serial.println(" %");
+  lcd.setCursor(0, 1); // try 0,0
+  /**
+   * Print temperature on the LCD
+   *
+   */
+  lcd.print("Temp: ");
+  lcd.print(t);
+  lcd.print("*C");
+  lcd.setCursor(1, 0); // try 0, 1
+  /**
+   * Print the humidity on the LCD
+   *
+   */
+  lcd.print("Humid: ");
+  lcd.print(h);
+  lcd.print("%");
 
-  Serial.print("Temperature: ");
-  Serial.print(t);
-  Serial.print(" *C ");
+  /**
+   * Print temperature and humidity on serial monitor
+   *
+   */
+  // Serial.print("Humidity: ");
+  // Serial.print(h);
+  // Serial.println(" %");
 
+  // Serial.print("Temperature: ");
+  // Serial.print(t);
+  // Serial.print(" *C ");
+
+  /**
+   * Turn off buzzer alarm if temperature > 25*C
+   * PYuhala: this is just a test, try changing the threshold.
+   *
+   */
   if (t > 25)
   {
-    //tone(buzzer, 1000); // Send 1KHz sound signal ...
-    //delay(200);         // buzz for 1 sec
-    //noTone(buzzer);     // Stop sound signal
+    tone(buzzer, 1000); // Send 1KHz sound signal ...
+    delay(200);         // buzz for 200 ms
+    noTone(buzzer);     // Stop sound signal
   }
 }
