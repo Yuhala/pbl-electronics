@@ -171,6 +171,11 @@ def turn_led_off():
 - TODO: use dht11 sensor to read indoor temperature and humidity.
 - TODO: add graph for daily temp and humidity variations
 
+- Install `Adafruit-DHT` package. It gets readings from the DHT11 sensors for RPi.
+```
+pip install Adafruit-DHT
+```
+- 
 # Controlling Tapo cameras
 ### Getting camera info
 - Install `pytapo` and test library.
@@ -200,12 +205,51 @@ print(tapo.getBasicInfo())
 ### Smart curtains
 
 
-### Controlling Hue lights
-- Install `phue` package.
+### Controlling Tapo Light Bulbs.
+- Install `PyP100` python package.
 ```
-pip install phue
+pip install PyP100
 ```
-- Get Hue bridge IP address via an `nmap` scan. The Hue bridge name is of the form: `
+- Get Tapo bulb IP address using via an `nmap` scan. NB: You may need to scan multiple times to see the bulb name (e.g., `L530`) in the scan report. Example scan report:
+```
+Nmap scan report for C200_0C8F53 (192.168.1.131)
+Host is up (0.013s latency).
+Nmap scan report for L530 (192.168.1.154)
+Host is up (0.011s latency).
+```
 
+- Connect to it and control with the code below.
+```
+from PyP100 import PyL530
+
+user = "email@gmail.com"
+password = "Password123"
+bulb_ip = "192.168.X.X"
+
+l530 = PyL530.L530(bulb_ip, user, password)
+
+l530.handshake() #Creates the cookies required for further methods
+l530.login() #Sends credentials to the plug and creates AES Key and IV for further methods
+
+p100.turnOn() #Turns the connected plug on
+p100.turnOff() #Turns the connected plug off
+p100.toggleState() #Toggles the state of the connected plug
+
+p100.turnOnWithDelay(10) #Turns the connected plug on after 10 seconds
+p100.turnOffWithDelay(10) #Turns the connected plug off after 10 seconds
+
+p100.getDeviceInfo() #Returns dict with all the device info of the connected plug
+p100.getDeviceName() #Returns the name of the connected plug set in the app
+
+#All the bulbs have the same basic functions as the plugs and additionally allow for the following functions.
+l530.setBrightness(50) #Sets the brightness of the connected bulb to 50% brightness
+l530.setColorTemp(2700) #Sets the color temperature of the connected bulb to 2700 Kelvin (Warm White)
+l530.setColor(30, 80) #Sets the color of the connected bulb to Hue: 30°, Saturation: 80% (Orange)
+```
+- See: https://pypi.org/project/PyP100/ for more information.
 
 ### NFC door lock
+
+
+### Check more info on particular IP after nmap scan
+- 
