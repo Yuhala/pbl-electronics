@@ -253,3 +253,12 @@ l530.setColor(30, 80) #Sets the color of the connected bulb to Hue: 30°, Satura
 
 ### Check more info on particular IP after nmap scan
 - 
+
+
+### Controlling devices with IR remote
+- Clone my repository `simple python IR library` and copy the `DDIR.py` file to your project folder.
+
+```
+
+```
+
