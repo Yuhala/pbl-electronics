@@ -19,7 +19,7 @@ ifeq ($(SGX),1)
 all: vector_add.manifest.sgx vector_add.sig
 endif
 
-vector_add: vector_add.o rt-utils.o error.o
+vector_add: vector_add.o
 
 
 
